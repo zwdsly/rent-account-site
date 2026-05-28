@@ -11,7 +11,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=4" />
   </head>
   <body>
     <header class="topbar">
@@ -188,11 +188,11 @@
       <span id="publishToastText"></span>
     </div>
 
-    <script src="./app.js"></script>
+    <script src="./app.js?v=4"></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+          navigator.serviceWorker.register("./service-worker.js?v=4").catch(() => {});
         });
       }
     </script>

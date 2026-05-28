@@ -1038,6 +1038,9 @@ main {
 
 @media (max-width: 560px) {
   .topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 52px;
+    gap: 8px;
     padding: 10px;
   }
 
@@ -1046,13 +1049,12 @@ main {
   }
 
   .admin-entry {
-    top: auto !important;
-    left: auto !important;
-    right: 14px;
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    position: static;
     width: 46px;
     height: 46px;
     border-radius: 16px;
+    justify-self: end;
+    align-self: center;
   }
 
   .product-card {
