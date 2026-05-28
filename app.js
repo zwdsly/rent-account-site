@@ -821,7 +821,7 @@ els.detailContent.addEventListener("click", (event) => {
 els.addTagButton.addEventListener("click", () => {
   const tag = els.tagInput.value.trim();
   if (!tag) return;
-  state.editingTags.push(tag.slice(0, 6));
+  state.editingTags.push(tag);
   els.tagInput.value = "";
   renderAdminTags();
 });
