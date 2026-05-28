@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>生死狙击账号租赁</title>
+    <meta name="theme-color" content="#f8fdfc" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="生死狙击租号" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="search-wrap">
+        <input id="searchInput" type="search" placeholder="请输入游戏关键词" autocomplete="off" />
+        <button id="searchButton" class="icon-button search-button" aria-label="搜索">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m21 21-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" />
+          </svg>
+        </button>
+      </div>
+      <button id="adminEntry" class="icon-button admin-entry" aria-label="进入管理">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" />
+          <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 1 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 1 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 .9-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 1 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.5.9h.1a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z" />
+        </svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="control-row" aria-label="商品排序">
+        <div class="result-count" id="resultCount"></div>
+        <select id="sortSelect" aria-label="价格排序">
+          <option value="default">默认排序</option>
+          <option value="asc">按1小时价格升序</option>
+          <option value="desc">按1小时价格降序</option>
+        </select>
+      </section>
+
+      <section id="productGrid" class="product-grid" aria-label="商品列表"></section>
+      <section id="emptyState" class="empty-state" hidden>
+        <strong>没有找到商品</strong>
+        <span>换个关键词，或者进入管理端添加账号。</span>
+      </section>
+    </main>
+
+    <div id="adminBackdrop" class="admin-backdrop" hidden></div>
+    <aside id="adminPanel" class="admin-panel" aria-hidden="true">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">管理系统</p>
+          <h1>账号管理</h1>
+          <span>编辑商品、图片和租赁价格</span>
+        </div>
+        <button id="closeAdmin" class="icon-button" aria-label="关闭管理">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="admin-workspace">
+        <form id="accountForm" class="account-form">
+          <input type="hidden" id="editingId" />
+          <div class="form-section">
+            <h2>基础信息</h2>
+            <label>
+              标题
+              <input id="titleInput" required maxlength="80" placeholder="例如：断罪套装 满配账号" />
+            </label>
+            <label>
+              账号描述
+              <textarea id="descriptionInput" rows="4" placeholder="正文详情，用户点进商品后查看"></textarea>
+            </label>
+            <div class="form-grid">
+              <label>
+                VIP等级
+                <input id="vipInput" type="number" min="0" step="1" value="0" />
+              </label>
+              <label>
+                游戏区服
+                <input id="serverInput" placeholder="生死狙击 / 电信 / 双线1区" />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>租金设置</h2>
+            <div class="form-grid price-fields">
+              <label>
+                1小时价格
+                <input id="hourPriceInput" type="number" min="0" step="0.1" required />
+              </label>
+              <label>
+                包夜价格
+                <input id="nightPriceInput" type="number" min="0" step="0.1" required />
+              </label>
+              <label>
+                包天价格
+                <input id="dayPriceInput" type="number" min="0" step="0.1" required />
+              </label>
+            </div>
+            <div class="form-grid">
+              <label>
+                租几个小时
+                <input id="rentHoursInput" type="number" min="0" step="1" value="0" />
+              </label>
+              <label>
+                送几个小时
+                <input id="giftHoursInput" type="number" min="0" step="1" value="0" />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>图片与标签</h2>
+            <label class="file-drop">
+              商品图片
+              <input id="imageInput" type="file" accept="image/*" multiple />
+            </label>
+            <div class="image-preview" id="imagePreview">未选择图片</div>
+            <label>
+              标签
+              <div class="tag-editor">
+                <input id="tagInput" maxlength="6" placeholder="最多6个字" />
+                <button type="button" id="addTagButton">添加</button>
+              </div>
+            </label>
+            <div id="tagList" class="admin-tags"></div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="resetFormButton" class="ghost-button">清空</button>
+            <button type="submit" class="primary-button">保存账号</button>
+          </div>
+        </form>
+
+        <div class="admin-list">
+          <div class="github-sync">
+            <div class="admin-list-head">
+              <h2>GitHub同步</h2>
+              <span>发布数据和图片</span>
+            </div>
+            <div class="github-grid">
+              <label>
+                用户名
+                <input id="githubOwnerInput" placeholder="例如：your-name" />
+              </label>
+              <label>
+                仓库名
+                <input id="githubRepoInput" placeholder="例如：rent-account-site" />
+              </label>
+              <label>
+                分支
+                <input id="githubBranchInput" placeholder="main" />
+              </label>
+              <label>
+                数据文件
+                <input id="githubPathInput" placeholder="data.json" />
+              </label>
+            </div>
+            <label>
+              GitHub Token
+              <input id="githubTokenInput" type="password" placeholder="只在你自己的管理电脑输入" />
+            </label>
+            <div class="github-actions">
+              <button type="button" id="githubLoadButton" class="ghost-button">读取线上数据</button>
+              <button type="button" id="githubPublishButton" class="primary-button">发布到GitHub</button>
+            </div>
+            <p id="githubStatus" class="github-status">发布时会上传新图片，并删除 GitHub 上不再被商品引用的 uploads 图片。</p>
+          </div>
+          <div class="admin-list-head">
+            <h2>已添加账号</h2>
+            <span id="adminListHint"></span>
+          </div>
+          <div id="adminItems"></div>
+        </div>
+      </div>
+    </aside>
+
+    <div id="dialogBackdrop" class="dialog-backdrop" hidden></div>
+    <dialog id="keyDialog" class="key-dialog">
+      <form method="dialog" id="keyForm">
+        <h2>输入管理密钥</h2>
+        <input id="keyInput" type="password" autocomplete="current-password" placeholder="请输入密钥" />
+        <p id="keyError" class="form-error" hidden>密钥不正确</p>
+        <div class="dialog-actions">
+          <button type="button" id="cancelKey" value="cancel" class="ghost-button">取消</button>
+          <button type="submit" id="confirmKey" value="confirm" class="primary-button">进入</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="detailDialog" class="detail-dialog">
+      <button id="closeDetail" class="icon-button dialog-close" aria-label="关闭详情">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <article id="detailContent"></article>
+    </dialog>
+
+    <script src="./app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>
