@@ -595,6 +595,17 @@ dialog::backdrop {
   gap: 14px;
 }
 
+.dialog-note {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.token-dialog input {
+  min-height: 44px;
+  border-radius: 14px;
+}
+
 .form-error {
   margin: -6px 0 0;
   color: #c31919;
@@ -826,52 +837,6 @@ main {
 .admin-list-head span {
   color: var(--muted);
   font-size: 13px;
-}
-
-.github-sync {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 14px;
-  padding: 14px;
-  border-radius: 18px;
-  background: #f8fbfb;
-}
-
-.github-sync label {
-  display: grid;
-  gap: 7px;
-  color: #384150;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.github-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.github-sync input {
-  min-height: 40px;
-  width: 100%;
-  border: 1px solid #e3ebef;
-  border-radius: 14px;
-  padding: 8px 10px;
-  outline: none;
-}
-
-.github-sync input:focus {
-  border-color: var(--teal);
-  box-shadow: var(--glow);
-}
-
-.github-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.github-actions button {
-  flex: 1;
 }
 
 .github-status {
@@ -1135,7 +1100,4 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .github-grid {
-    grid-template-columns: 1fr;
-  }
 }

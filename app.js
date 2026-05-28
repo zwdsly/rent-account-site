@@ -92,14 +92,11 @@ const els = {
   resetFormButton: document.querySelector("#resetFormButton"),
   adminListHint: document.querySelector("#adminListHint"),
   adminItems: document.querySelector("#adminItems"),
-  githubOwnerInput: document.querySelector("#githubOwnerInput"),
-  githubRepoInput: document.querySelector("#githubRepoInput"),
-  githubBranchInput: document.querySelector("#githubBranchInput"),
-  githubPathInput: document.querySelector("#githubPathInput"),
-  githubTokenInput: document.querySelector("#githubTokenInput"),
-  githubLoadButton: document.querySelector("#githubLoadButton"),
-  githubPublishButton: document.querySelector("#githubPublishButton"),
-  githubStatus: document.querySelector("#githubStatus"),
+  tokenDialog: document.querySelector("#tokenDialog"),
+  tokenForm: document.querySelector("#tokenForm"),
+  tokenPromptInput: document.querySelector("#tokenPromptInput"),
+  tokenPromptMessage: document.querySelector("#tokenPromptMessage"),
+  cancelTokenPrompt: document.querySelector("#cancelTokenPrompt"),
   publishToast: document.querySelector("#publishToast"),
   publishToastText: document.querySelector("#publishToastText"),
   detailDialog: document.querySelector("#detailDialog"),
@@ -146,31 +143,23 @@ function loadGithubConfig() {
 }
 
 function saveGithubConfig() {
-  state.github = {
-    owner: els.githubOwnerInput.value.trim(),
-    repo: els.githubRepoInput.value.trim(),
-    branch: els.githubBranchInput.value.trim() || "main",
-    path: els.githubPathInput.value.trim() || "data.json",
-  };
+  state.github = { ...DEFAULT_GITHUB_CONFIG };
   localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify(state.github));
-  const token = els.githubTokenInput.value.trim();
+}
+
+function saveGithubToken(token) {
   if (token) {
     localStorage.setItem(GITHUB_TOKEN_KEY, token);
   }
 }
 
 function fillGithubConfig() {
-  els.githubOwnerInput.value = state.github.owner || "";
-  els.githubRepoInput.value = state.github.repo || "";
-  els.githubBranchInput.value = state.github.branch || "main";
-  els.githubPathInput.value = state.github.path || "data.json";
-  const savedToken = localStorage.getItem(GITHUB_TOKEN_KEY) || "";
-  els.githubTokenInput.value = savedToken;
+  state.github = { ...DEFAULT_GITHUB_CONFIG };
+  localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify(state.github));
 }
 
 function setGithubStatus(message, type = "") {
-  els.githubStatus.textContent = message;
-  els.githubStatus.dataset.type = type;
+  setPublishToast(message, type);
 }
 
 function setPublishToast(message, type = "") {
@@ -345,7 +334,7 @@ async function deleteGithubFile(owner, repo, branch, path, token) {
 
 async function publishToGithub() {
   saveGithubConfig();
-  const token = els.githubTokenInput.value.trim() || localStorage.getItem(GITHUB_TOKEN_KEY) || "";
+  const token = localStorage.getItem(GITHUB_TOKEN_KEY) || "";
   const { owner, repo, branch, path } = state.github;
   if (!owner || !repo || !branch || !path) {
     throw new Error("请先填写 GitHub 用户名、仓库名、分支和数据文件路径。");
@@ -415,7 +404,7 @@ async function publishToGithub() {
 
 async function loadFromGithub() {
   saveGithubConfig();
-  const token = els.githubTokenInput.value.trim() || localStorage.getItem(GITHUB_TOKEN_KEY) || "";
+  const token = localStorage.getItem(GITHUB_TOKEN_KEY) || "";
   const { owner, repo, branch, path } = state.github;
   if (!owner || !repo || !branch || !path) {
     throw new Error("请先填写 GitHub 用户名、仓库名、分支和数据文件路径。");
@@ -622,29 +611,41 @@ function closeAdmin() {
   els.adminBackdrop.hidden = true;
 }
 
+function openTokenDialog() {
+  els.tokenPromptInput.value = "";
+  els.tokenPromptMessage.hidden = true;
+  els.tokenPromptMessage.textContent = "";
+  els.tokenDialog.showModal();
+  els.tokenPromptInput.focus();
+}
+
 async function publishChanges(source = "manual") {
   if (state.isPublishing) return;
+  if (!localStorage.getItem(GITHUB_TOKEN_KEY)) {
+    openTokenDialog();
+    return;
+  }
+
   state.isPublishing = true;
-  els.githubLoadButton.disabled = true;
-  els.githubPublishButton.disabled = true;
   const startMessage = source === "auto" ? "正在自动发布到 GitHub..." : "正在发布到 GitHub...";
-  setGithubStatus(startMessage);
+  setGithubStatus("正在验证 token...");
   setPublishToast(startMessage);
 
   try {
     await publishToGithub();
     clearDirty();
-    const successMessage = "发布成功。GitHub Pages 通常几十秒后刷新。";
+    const successMessage = "token正确，发布成功。GitHub Pages 通常几十秒后刷新。";
     setGithubStatus(successMessage, "success");
     setPublishToast(successMessage, "success");
   } catch (error) {
     const message = error.message || "发布失败，请检查 GitHub Token 和网络。";
+    if (String(message).includes("Bad credentials") || String(message).includes("401")) {
+      localStorage.removeItem(GITHUB_TOKEN_KEY);
+    }
     setGithubStatus(message, "error");
     setPublishToast(message, "error");
   } finally {
     state.isPublishing = false;
-    els.githubLoadButton.disabled = false;
-    els.githubPublishButton.disabled = false;
   }
 }
 
@@ -777,6 +778,26 @@ els.closeAdmin.addEventListener("click", closeAdminAndMaybePublish);
 els.adminBackdrop.addEventListener("click", closeAdminAndMaybePublish);
 els.closeDetail.addEventListener("click", () => els.detailDialog.close());
 
+els.tokenForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const token = els.tokenPromptInput.value.trim();
+  if (!token) {
+    els.tokenPromptMessage.textContent = "请先输入 GitHub Token。";
+    els.tokenPromptMessage.hidden = false;
+    return;
+  }
+
+  saveGithubToken(token);
+  els.tokenDialog.close();
+  setPublishToast("token 已保存，正在验证并发布...");
+  await publishChanges("auto");
+});
+
+els.cancelTokenPrompt.addEventListener("click", () => {
+  els.tokenDialog.close();
+  setPublishToast("已取消发布，修改仍保存在本机。", "error");
+});
+
 els.detailContent.addEventListener("click", (event) => {
   const id = els.detailContent.dataset.detailId;
   if (!id) return;
@@ -882,23 +903,6 @@ els.accountForm.addEventListener("submit", (event) => {
 });
 
 els.resetFormButton.addEventListener("click", resetForm);
-
-els.githubLoadButton.addEventListener("click", async () => {
-  setGithubStatus("正在读取 GitHub 数据...");
-  els.githubLoadButton.disabled = true;
-  try {
-    await loadFromGithub();
-    setGithubStatus("已读取 GitHub 上的 data.json。", "success");
-  } catch (error) {
-    setGithubStatus(error.message, "error");
-  } finally {
-    els.githubLoadButton.disabled = false;
-  }
-});
-
-els.githubPublishButton.addEventListener("click", async () => {
-  await publishChanges("manual");
-});
 
 els.adminItems.addEventListener("click", (event) => {
   const editButton = event.target.closest("[data-edit]");

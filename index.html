@@ -140,39 +140,6 @@
         </form>
 
         <div class="admin-list">
-          <div class="github-sync">
-            <div class="admin-list-head">
-              <h2>GitHub同步</h2>
-              <span>发布数据和图片</span>
-            </div>
-            <div class="github-grid">
-              <label>
-                用户名
-                <input id="githubOwnerInput" readonly />
-              </label>
-              <label>
-                仓库名
-                <input id="githubRepoInput" readonly />
-              </label>
-              <label>
-                分支
-                <input id="githubBranchInput" readonly />
-              </label>
-              <label>
-                数据文件
-                <input id="githubPathInput" readonly />
-              </label>
-            </div>
-            <label>
-              GitHub Token
-              <input id="githubTokenInput" type="password" placeholder="重新生成 token 后在这里输入一次" />
-            </label>
-            <div class="github-actions">
-              <button type="button" id="githubLoadButton" class="ghost-button">读取线上数据</button>
-              <button type="button" id="githubPublishButton" class="primary-button">发布到GitHub</button>
-            </div>
-            <p id="githubStatus" class="github-status">发布时会上传新图片，并删除 GitHub 上不再被商品引用的 uploads 图片。</p>
-          </div>
           <div class="admin-list-head">
             <h2>已添加账号</h2>
             <span id="adminListHint"></span>
@@ -191,6 +158,19 @@
         <div class="dialog-actions">
           <button type="button" id="cancelKey" value="cancel" class="ghost-button">取消</button>
           <button type="submit" id="confirmKey" value="confirm" class="primary-button">进入</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="tokenDialog" class="key-dialog token-dialog">
+      <form method="dialog" id="tokenForm">
+        <h2>输入 GitHub Token</h2>
+        <p class="dialog-note">token 只需输入一次，后续不需要了。本机会自动记住。</p>
+        <input id="tokenPromptInput" type="password" autocomplete="off" placeholder="粘贴 GitHub Token" />
+        <p id="tokenPromptMessage" class="form-error" hidden></p>
+        <div class="dialog-actions">
+          <button type="button" id="cancelTokenPrompt" class="ghost-button">稍后发布</button>
+          <button type="submit" class="primary-button">保存并发布</button>
         </div>
       </form>
     </dialog>
