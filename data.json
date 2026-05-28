@@ -1,6 +1,28 @@
 {
   "accounts": [
     {
+      "id": "b78c42b8-ab86-4894-9a1d-90c6c7d1de0e",
+      "title": "断罪",
+      "description": "",
+      "vip": 4,
+      "server": "asdas",
+      "prices": {
+        "hour": 4,
+        "night": 21,
+        "day": 112
+      },
+      "gift": {
+        "rent": 3,
+        "free": 1
+      },
+      "tags": [],
+      "images": [
+        "uploads/b78c42b8-ab86-4894-9a1d-90c6c7d1de0e/mpp7cxsn-1.png",
+        "uploads/b78c42b8-ab86-4894-9a1d-90c6c7d1de0e/mpp7czm2-2.jpg"
+      ],
+      "image": "uploads/b78c42b8-ab86-4894-9a1d-90c6c7d1de0e/mpp7cxsn-1.png"
+    },
+    {
       "id": "seed-001",
       "title": "星光终焉15传说 满配神器 神途终章 v10 永久臻藏武器库",
       "description": "高配主号，武器库完整，适合排位、娱乐和体验稀有皮肤。下单前请确认区服。",
@@ -15,7 +37,11 @@
         "rent": 3,
         "free": 1
       },
-      "tags": ["免押金", "超13X", "高信誉"],
+      "tags": [
+        "免押金",
+        "超13X",
+        "高信誉"
+      ],
       "images": [],
       "image": ""
     },
@@ -34,7 +60,11 @@
         "rent": 2,
         "free": 1
       },
-      "tags": ["免押金", "租4送1", "满级"],
+      "tags": [
+        "免押金",
+        "租4送1",
+        "满级"
+      ],
       "images": [],
       "image": ""
     },
@@ -53,7 +83,11 @@
         "rent": 4,
         "free": 1
       },
-      "tags": ["性价比", "冒险强", "可包天"],
+      "tags": [
+        "性价比",
+        "冒险强",
+        "可包天"
+      ],
       "images": [],
       "image": ""
     }
