@@ -1,25 +1,26 @@
 {
   "accounts": [
     {
-      "id": "16351276-bf2d-489c-a236-8677a19c7ed1",
+      "id": "b78c42b8-ab86-4894-9a1d-90c6c7d1de0e",
       "title": "断罪",
       "description": "",
-      "vip": 2,
-      "server": "",
+      "vip": 4,
+      "server": "asdas",
       "prices": {
-        "hour": 0.1,
-        "night": 21321,
-        "day": 123
+        "hour": 4,
+        "night": 21,
+        "day": 112
       },
       "gift": {
-        "rent": 1,
-        "free": 12
+        "rent": 3,
+        "free": 1
       },
       "tags": [],
       "images": [
-        "uploads/16351276-bf2d-489c-a236-8677a19c7ed1/mpp7ehcc-1.png"
+        "uploads/b78c42b8-ab86-4894-9a1d-90c6c7d1de0e/mpp7cxsn-1.png",
+        "uploads/b78c42b8-ab86-4894-9a1d-90c6c7d1de0e/mpp7czm2-2.jpg"
       ],
-      "image": "uploads/16351276-bf2d-489c-a236-8677a19c7ed1/mpp7ehcc-1.png"
+      "image": "uploads/b78c42b8-ab86-4894-9a1d-90c6c7d1de0e/mpp7cxsn-1.png"
     },
     {
       "id": "seed-001",
