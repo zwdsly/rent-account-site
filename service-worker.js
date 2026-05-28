@@ -1,9 +1,9 @@
-const CACHE_NAME = "sniper-rental-pwa-v2";
+const CACHE_NAME = "sniper-rental-pwa-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
+  "./styles.css?v=3",
+  "./app.js?v=3",
   "./data.json",
   "./manifest.webmanifest",
   "./icons/icon.svg",
@@ -36,7 +36,13 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== location.origin) return;
 
-  if (url.pathname.endsWith("/data.json")) {
+  if (
+    url.pathname.endsWith("/data.json") ||
+    url.pathname.endsWith("/index.html") ||
+    url.pathname.endsWith("/styles.css") ||
+    url.pathname.endsWith("/app.js") ||
+    url.pathname.endsWith("/service-worker.js")
+  ) {
     event.respondWith(
       fetch(request)
         .then((response) => {

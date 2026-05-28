@@ -1046,6 +1046,8 @@ main {
   }
 
   .admin-entry {
+    top: auto !important;
+    left: auto !important;
     right: 14px;
     bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     width: 46px;
