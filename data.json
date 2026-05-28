@@ -1,6 +1,48 @@
 {
   "accounts": [
     {
+      "id": "f5c23643-0e10-4b36-aeb4-13d519f170da",
+      "title": "断罪终焉❤️残辉贰❤️满配件电翎星斗寂灭❤️瑶光终焉晶刹贰两仪贰命运❤️无涯炽霞阿瑞斯霏拉",
+      "description": "【冒险次元之星贰满同步、能量防卫者贰1625同步、裁决之炎贰1225同步、碎星终焉1100同步、影魔满同步、伏虎满配件1550同步、天引满配件满同步、终末之弩满配件1375同步】",
+      "vip": 11,
+      "server": "双线一区",
+      "prices": {
+        "hour": 2,
+        "night": 15,
+        "day": 25
+      },
+      "gift": {
+        "rent": 4,
+        "free": 1
+      },
+      "tags": [],
+      "images": [
+        "uploads/f5c23643-0e10-4b36-aeb4-13d519f170da/mpp97ysa-1.jpg"
+      ],
+      "image": "uploads/f5c23643-0e10-4b36-aeb4-13d519f170da/mpp97ysa-1.jpg"
+    },
+    {
+      "id": "3955fec3-aca5-46d5-b6c3-02df848fb5e4",
+      "title": "v10血清断罪终焉瑶光星珀龙息无尽屠魔1334万战力流影巨阙广陵魅影飞梭纵横贰晶刹★丧钟浪漫花束降罪",
+      "description": "断罪终焉1950同步、巨阙贰925同步、裁决满同步（符文403）、rpk主宰1925（符文248）、异能典藏星珀1325、广棱1975、两仪1800、万象1800、飞梭1600、纵横1225",
+      "vip": 10,
+      "server": "电信一区",
+      "prices": {
+        "hour": 2.1,
+        "night": 10,
+        "day": 15
+      },
+      "gift": {
+        "rent": 4,
+        "free": 1
+      },
+      "tags": [],
+      "images": [
+        "uploads/3955fec3-aca5-46d5-b6c3-02df848fb5e4/mpp980ml-1.png"
+      ],
+      "image": "uploads/3955fec3-aca5-46d5-b6c3-02df848fb5e4/mpp980ml-1.png"
+    },
+    {
       "id": "e159b50d-e666-4d3b-84b0-b33427dfe333",
       "title": "断罪残辉最新武器",
       "description": "",
@@ -94,7 +136,7 @@
       "title": "满配冒险主号 王者武器多 竞技娱乐通用",
       "description": "冒险、竞技都能玩，角色和武器搭配完整，适合长租体验。",
       "vip": 8,
-      "server": "生死狙击 / 双线 / 华东一区",
+      "server": "电信2区",
       "prices": {
         "hour": 1.8,
         "night": 10.8,
@@ -109,8 +151,10 @@
         "冒险强",
         "可包天"
       ],
-      "images": [],
-      "image": ""
+      "images": [
+        "uploads/seed-003/mpp982t1-1.jpg"
+      ],
+      "image": "uploads/seed-003/mpp982t1-1.jpg"
     }
   ]
 }
