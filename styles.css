@@ -1041,6 +1041,18 @@ main {
     padding: 10px;
   }
 
+  .search-wrap {
+    width: 100%;
+  }
+
+  .admin-entry {
+    right: 14px;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+  }
+
   .product-card {
     grid-template-columns: 104px minmax(0, 1fr);
     gap: 10px;
