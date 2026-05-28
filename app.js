@@ -1,7 +1,14 @@
 const ADMIN_KEY = "1qaz2wsx";
 const STORAGE_KEY = "sniper-rental-accounts-v1";
 const GITHUB_CONFIG_KEY = "sniper-rental-github-config-v1";
+const GITHUB_TOKEN_KEY = "sniper-rental-github-token-v1";
 const DATA_FILE = "./data.json";
+const DEFAULT_GITHUB_CONFIG = {
+  owner: "zwdsly",
+  repo: "rent-account-site",
+  branch: "main",
+  path: "data.json",
+};
 
 const seedAccounts = [
   {
@@ -46,6 +53,8 @@ const state = {
   editingTags: [],
   currentImages: [],
   github: loadGithubConfig(),
+  hasUnpublishedChanges: false,
+  isPublishing: false,
 };
 
 const els = {
@@ -91,6 +100,8 @@ const els = {
   githubLoadButton: document.querySelector("#githubLoadButton"),
   githubPublishButton: document.querySelector("#githubPublishButton"),
   githubStatus: document.querySelector("#githubStatus"),
+  publishToast: document.querySelector("#publishToast"),
+  publishToastText: document.querySelector("#publishToastText"),
   detailDialog: document.querySelector("#detailDialog"),
   closeDetail: document.querySelector("#closeDetail"),
   detailContent: document.querySelector("#detailContent"),
@@ -126,14 +137,11 @@ function saveAccounts() {
 function loadGithubConfig() {
   try {
     return {
-      owner: "",
-      repo: "",
-      branch: "main",
-      path: "data.json",
       ...JSON.parse(localStorage.getItem(GITHUB_CONFIG_KEY) || "{}"),
+      ...DEFAULT_GITHUB_CONFIG,
     };
   } catch {
-    return { owner: "", repo: "", branch: "main", path: "data.json" };
+    return { ...DEFAULT_GITHUB_CONFIG };
   }
 }
 
@@ -145,6 +153,10 @@ function saveGithubConfig() {
     path: els.githubPathInput.value.trim() || "data.json",
   };
   localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify(state.github));
+  const token = els.githubTokenInput.value.trim();
+  if (token) {
+    localStorage.setItem(GITHUB_TOKEN_KEY, token);
+  }
 }
 
 function fillGithubConfig() {
@@ -152,11 +164,33 @@ function fillGithubConfig() {
   els.githubRepoInput.value = state.github.repo || "";
   els.githubBranchInput.value = state.github.branch || "main";
   els.githubPathInput.value = state.github.path || "data.json";
+  const savedToken = localStorage.getItem(GITHUB_TOKEN_KEY) || "";
+  els.githubTokenInput.value = savedToken;
 }
 
 function setGithubStatus(message, type = "") {
   els.githubStatus.textContent = message;
   els.githubStatus.dataset.type = type;
+}
+
+function setPublishToast(message, type = "") {
+  els.publishToastText.textContent = message;
+  els.publishToast.dataset.type = type;
+  els.publishToast.hidden = false;
+  if (type === "success") {
+    setTimeout(() => {
+      els.publishToast.hidden = true;
+    }, 6000);
+  }
+}
+
+function markDirty() {
+  state.hasUnpublishedChanges = true;
+  setGithubStatus("有未发布的修改，关闭管理窗口时会自动发布。");
+}
+
+function clearDirty() {
+  state.hasUnpublishedChanges = false;
 }
 
 async function loadPublishedAccounts(showStatus = false) {
@@ -311,7 +345,7 @@ async function deleteGithubFile(owner, repo, branch, path, token) {
 
 async function publishToGithub() {
   saveGithubConfig();
-  const token = els.githubTokenInput.value.trim();
+  const token = els.githubTokenInput.value.trim() || localStorage.getItem(GITHUB_TOKEN_KEY) || "";
   const { owner, repo, branch, path } = state.github;
   if (!owner || !repo || !branch || !path) {
     throw new Error("请先填写 GitHub 用户名、仓库名、分支和数据文件路径。");
@@ -376,11 +410,12 @@ async function publishToGithub() {
       await deleteGithubFile(owner, repo, branch, imagePath, token);
     }
   }
+  state.hasUnpublishedChanges = false;
 }
 
 async function loadFromGithub() {
   saveGithubConfig();
-  const token = els.githubTokenInput.value.trim();
+  const token = els.githubTokenInput.value.trim() || localStorage.getItem(GITHUB_TOKEN_KEY) || "";
   const { owner, repo, branch, path } = state.github;
   if (!owner || !repo || !branch || !path) {
     throw new Error("请先填写 GitHub 用户名、仓库名、分支和数据文件路径。");
@@ -587,6 +622,40 @@ function closeAdmin() {
   els.adminBackdrop.hidden = true;
 }
 
+async function publishChanges(source = "manual") {
+  if (state.isPublishing) return;
+  state.isPublishing = true;
+  els.githubLoadButton.disabled = true;
+  els.githubPublishButton.disabled = true;
+  const startMessage = source === "auto" ? "正在自动发布到 GitHub..." : "正在发布到 GitHub...";
+  setGithubStatus(startMessage);
+  setPublishToast(startMessage);
+
+  try {
+    await publishToGithub();
+    clearDirty();
+    const successMessage = "发布成功。GitHub Pages 通常几十秒后刷新。";
+    setGithubStatus(successMessage, "success");
+    setPublishToast(successMessage, "success");
+  } catch (error) {
+    const message = error.message || "发布失败，请检查 GitHub Token 和网络。";
+    setGithubStatus(message, "error");
+    setPublishToast(message, "error");
+  } finally {
+    state.isPublishing = false;
+    els.githubLoadButton.disabled = false;
+    els.githubPublishButton.disabled = false;
+  }
+}
+
+function closeAdminAndMaybePublish() {
+  const shouldPublish = state.hasUnpublishedChanges;
+  closeAdmin();
+  if (shouldPublish) {
+    publishChanges("auto");
+  }
+}
+
 function showDetail(id, imageIndex = 0) {
   const account = state.accounts.find((item) => item.id === id);
   if (!account) return;
@@ -704,8 +773,8 @@ els.cancelKey.addEventListener("click", () => {
   els.keyDialog.close();
 });
 
-els.closeAdmin.addEventListener("click", closeAdmin);
-els.adminBackdrop.addEventListener("click", closeAdmin);
+els.closeAdmin.addEventListener("click", closeAdminAndMaybePublish);
+els.adminBackdrop.addEventListener("click", closeAdminAndMaybePublish);
 els.closeDetail.addEventListener("click", () => els.detailDialog.close());
 
 els.detailContent.addEventListener("click", (event) => {
@@ -806,6 +875,7 @@ els.accountForm.addEventListener("submit", (event) => {
   }
 
   saveAccounts();
+  markDirty();
   renderProducts();
   renderAdminList();
   resetForm();
@@ -827,16 +897,7 @@ els.githubLoadButton.addEventListener("click", async () => {
 });
 
 els.githubPublishButton.addEventListener("click", async () => {
-  setGithubStatus("正在发布到 GitHub...");
-  els.githubPublishButton.disabled = true;
-  try {
-    await publishToGithub();
-    setGithubStatus("发布成功。GitHub Pages 通常几十秒后刷新。", "success");
-  } catch (error) {
-    setGithubStatus(error.message, "error");
-  } finally {
-    els.githubPublishButton.disabled = false;
-  }
+  await publishChanges("manual");
 });
 
 els.adminItems.addEventListener("click", (event) => {
@@ -853,6 +914,7 @@ els.adminItems.addEventListener("click", (event) => {
     if (account && confirm(`确定删除「${productTitle(account)}」吗？`)) {
       state.accounts = state.accounts.filter((item) => item.id !== deleteButton.dataset.delete);
       saveAccounts();
+      markDirty();
       renderProducts();
       renderAdminList();
       resetForm();

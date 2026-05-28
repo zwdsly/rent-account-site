@@ -1,51 +1,6 @@
 {
   "accounts": [
     {
-      "id": "8f78622a-c973-4ee9-8771-22d27679b7b6",
-      "title": "ww",
-      "description": "",
-      "vip": 0,
-      "server": "电信2区",
-      "prices": {
-        "hour": 10,
-        "night": 28,
-        "day": 12
-      },
-      "gift": {
-        "rent": 3,
-        "free": 0
-      },
-      "tags": [
-        "断罪"
-      ],
-      "images": [
-        "uploads/8f78622a-c973-4ee9-8771-22d27679b7b6/mpp6mk0q-1.jpg",
-        "uploads/8f78622a-c973-4ee9-8771-22d27679b7b6/mpp6mlux-2.png"
-      ],
-      "image": "uploads/8f78622a-c973-4ee9-8771-22d27679b7b6/mpp6mk0q-1.jpg"
-    },
-    {
-      "id": "03c5e40f-e4ae-4210-aa0e-090eacdd3c40",
-      "title": "屠魔",
-      "description": "",
-      "vip": 10,
-      "server": "电信2区",
-      "prices": {
-        "hour": 2,
-        "night": 2,
-        "day": 1
-      },
-      "gift": {
-        "rent": 3,
-        "free": 0
-      },
-      "tags": [],
-      "images": [
-        "uploads/03c5e40f-e4ae-4210-aa0e-090eacdd3c40/mpp6ckfs-1.jpg"
-      ],
-      "image": "uploads/03c5e40f-e4ae-4210-aa0e-090eacdd3c40/mpp6ckfs-1.jpg"
-    },
-    {
       "id": "seed-001",
       "title": "星光终焉15传说 满配神器 神途终章 v10 永久臻藏武器库",
       "description": "高配主号，武器库完整，适合排位、娱乐和体验稀有皮肤。下单前请确认区服。",
@@ -60,11 +15,26 @@
         "rent": 3,
         "free": 1
       },
-      "tags": [
-        "免押金",
-        "超13X",
-        "高信誉"
-      ],
+      "tags": ["免押金", "超13X", "高信誉"],
+      "images": [],
+      "image": ""
+    },
+    {
+      "id": "seed-002",
+      "title": "断罪套装 速影幻羽 枪王同款 2888万战 满级账号",
+      "description": "热门套装齐全，号内资源多，稳定可租。请勿改密、绑定或进行违规操作。",
+      "vip": 12,
+      "server": "生死狙击 / 电信 / 双线三区",
+      "prices": {
+        "hour": 2.9,
+        "night": 16.9,
+        "day": 32.9
+      },
+      "gift": {
+        "rent": 2,
+        "free": 1
+      },
+      "tags": ["免押金", "租4送1", "满级"],
       "images": [],
       "image": ""
     },
@@ -83,11 +53,7 @@
         "rent": 4,
         "free": 1
       },
-      "tags": [
-        "性价比",
-        "冒险强",
-        "可包天"
-      ],
+      "tags": ["性价比", "冒险强", "可包天"],
       "images": [],
       "image": ""
     }

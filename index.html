@@ -148,24 +148,24 @@
             <div class="github-grid">
               <label>
                 用户名
-                <input id="githubOwnerInput" placeholder="例如：your-name" />
+                <input id="githubOwnerInput" readonly />
               </label>
               <label>
                 仓库名
-                <input id="githubRepoInput" placeholder="例如：rent-account-site" />
+                <input id="githubRepoInput" readonly />
               </label>
               <label>
                 分支
-                <input id="githubBranchInput" placeholder="main" />
+                <input id="githubBranchInput" readonly />
               </label>
               <label>
                 数据文件
-                <input id="githubPathInput" placeholder="data.json" />
+                <input id="githubPathInput" readonly />
               </label>
             </div>
             <label>
               GitHub Token
-              <input id="githubTokenInput" type="password" placeholder="只在你自己的管理电脑输入" />
+              <input id="githubTokenInput" type="password" placeholder="重新生成 token 后在这里输入一次" />
             </label>
             <div class="github-actions">
               <button type="button" id="githubLoadButton" class="ghost-button">读取线上数据</button>
@@ -203,6 +203,10 @@
       </button>
       <article id="detailContent"></article>
     </dialog>
+
+    <div id="publishToast" class="publish-toast" hidden>
+      <span id="publishToastText"></span>
+    </div>
 
     <script src="./app.js"></script>
     <script>
