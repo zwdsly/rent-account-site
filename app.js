@@ -1,4 +1,4 @@
-const ADMIN_KEY = "uusi&jasdja1213@qq_142";
+const ADMIN_KEY = "1qaz2wsx";
 const STORAGE_KEY = "sniper-rental-accounts-v1";
 const GITHUB_CONFIG_KEY = "sniper-rental-github-config-v1";
 const DATA_FILE = "./data.json";
