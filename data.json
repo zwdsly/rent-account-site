@@ -1,25 +1,28 @@
 {
   "accounts": [
     {
-      "id": "03c5e40f-e4ae-4210-aa0e-090eacdd3c40",
-      "title": "屠魔",
+      "id": "0b6e1fcb-c28d-494a-aa00-e72a080c9967",
+      "title": "断罪",
       "description": "",
-      "vip": 10,
+      "vip": 18,
       "server": "电信2区",
       "prices": {
         "hour": 2,
-        "night": 2,
-        "day": 1
+        "night": 34,
+        "day": 54
       },
       "gift": {
         "rent": 3,
-        "free": 0
+        "free": 1
       },
-      "tags": [],
-      "images": [
-        "uploads/03c5e40f-e4ae-4210-aa0e-090eacdd3c40/mpp6ckfs-1.jpg"
+      "tags": [
+        "厉害"
       ],
-      "image": "uploads/03c5e40f-e4ae-4210-aa0e-090eacdd3c40/mpp6ckfs-1.jpg"
+      "images": [
+        "uploads/0b6e1fcb-c28d-494a-aa00-e72a080c9967/mpp6elxx-1.jpg",
+        "uploads/0b6e1fcb-c28d-494a-aa00-e72a080c9967/mpp6eogy-2.jpg"
+      ],
+      "image": "uploads/0b6e1fcb-c28d-494a-aa00-e72a080c9967/mpp6elxx-1.jpg"
     },
     {
       "id": "seed-001",
