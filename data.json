@@ -1,28 +1,25 @@
 {
   "accounts": [
     {
-      "id": "0b6e1fcb-c28d-494a-aa00-e72a080c9967",
-      "title": "断罪",
+      "id": "03c5e40f-e4ae-4210-aa0e-090eacdd3c40",
+      "title": "屠魔",
       "description": "",
-      "vip": 18,
+      "vip": 10,
       "server": "电信2区",
       "prices": {
         "hour": 2,
-        "night": 34,
-        "day": 54
+        "night": 2,
+        "day": 1
       },
       "gift": {
         "rent": 3,
-        "free": 1
+        "free": 0
       },
-      "tags": [
-        "厉害"
-      ],
+      "tags": [],
       "images": [
-        "uploads/0b6e1fcb-c28d-494a-aa00-e72a080c9967/mpp6elxx-1.jpg",
-        "uploads/0b6e1fcb-c28d-494a-aa00-e72a080c9967/mpp6eogy-2.jpg"
+        "uploads/03c5e40f-e4ae-4210-aa0e-090eacdd3c40/mpp6ckfs-1.jpg"
       ],
-      "image": "uploads/0b6e1fcb-c28d-494a-aa00-e72a080c9967/mpp6elxx-1.jpg"
+      "image": "uploads/03c5e40f-e4ae-4210-aa0e-090eacdd3c40/mpp6ckfs-1.jpg"
     },
     {
       "id": "seed-001",
@@ -43,29 +40,6 @@
         "免押金",
         "超13X",
         "高信誉"
-      ],
-      "images": [],
-      "image": ""
-    },
-    {
-      "id": "seed-002",
-      "title": "断罪套装 速影幻羽 枪王同款 2888万战 满级账号",
-      "description": "热门套装齐全，号内资源多，稳定可租。请勿改密、绑定或进行违规操作。",
-      "vip": 12,
-      "server": "生死狙击 / 电信 / 双线三区",
-      "prices": {
-        "hour": 2.9,
-        "night": 16.9,
-        "day": 32.9
-      },
-      "gift": {
-        "rent": 2,
-        "free": 1
-      },
-      "tags": [
-        "免押金",
-        "租4送1",
-        "满级"
       ],
       "images": [],
       "image": ""
