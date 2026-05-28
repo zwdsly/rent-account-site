@@ -65,50 +65,6 @@
       "image": "uploads/e159b50d-e666-4d3b-84b0-b33427dfe333/mpp8sdkx-1.webp"
     },
     {
-      "id": "978ab321-488d-4d80-a014-0deea19dbb93",
-      "title": "萨德",
-      "description": "",
-      "vip": 0,
-      "server": "电信一区",
-      "prices": {
-        "hour": 1.2,
-        "night": 21,
-        "day": 112
-      },
-      "gift": {
-        "rent": 0,
-        "free": 0
-      },
-      "tags": [],
-      "images": [
-        "uploads/978ab321-488d-4d80-a014-0deea19dbb93/mpp8htu8-1.jpg"
-      ],
-      "image": "uploads/978ab321-488d-4d80-a014-0deea19dbb93/mpp8htu8-1.jpg"
-    },
-    {
-      "id": "seed-002",
-      "title": "断罪套装 速影幻羽 枪王同款 2888万战 满级账号",
-      "description": "热门套装齐全，号内资源多，稳定可租。请勿改密、绑定或进行违规操作。",
-      "vip": 12,
-      "server": "生死狙击 / 电信 / 双线三区",
-      "prices": {
-        "hour": 2.9,
-        "night": 16.9,
-        "day": 32.9
-      },
-      "gift": {
-        "rent": 2,
-        "free": 1
-      },
-      "tags": [
-        "免押金",
-        "租4送1",
-        "满级"
-      ],
-      "images": [],
-      "image": ""
-    },
-    {
       "id": "seed-003",
       "title": "满配冒险主号 王者武器多 竞技娱乐通用",
       "description": "冒险、竞技都能玩，角色和武器搭配完整，适合长租体验。",
